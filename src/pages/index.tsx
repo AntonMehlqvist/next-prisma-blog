@@ -4,7 +4,9 @@ import Head from 'next/head';
 import { trpc } from '../utils/trpc';
 
 const Home: NextPage = () => {
-	const hello = trpc.useQuery(['example.hello', { text: 'from tRPC' }]);
+	const hello = trpc.useQuery(['example.getAll']);
+	console.log(hello);
+
 
 	const { data: session } = useSession();
 	if (session) {
@@ -12,6 +14,7 @@ const Home: NextPage = () => {
 			<>
 				Signed in as {session?.user?.email} <br />
 				<button onClick={() => signOut()}>Sign out</button>
+				<br />
 			</>
 		);
 	}
