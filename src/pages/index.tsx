@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 						<li key={post.id}>
 							<h3>{post.title}</h3>
 							<p>{post.content}</p>
-							<p>{post.author_id}</p>
+							<p>{post.author?.name}</p>
 						</li>
 					))}
 			</ul>

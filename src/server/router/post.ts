@@ -4,7 +4,15 @@ import { z } from 'zod';
 export const postRouter = createRouter()
 	.query('getAll', {
 		async resolve({ ctx }) {
-			return await ctx.prisma.post.findMany();
+			return await ctx.prisma.post.findMany({
+				include: {
+					author: {
+						select: {
+							name: true,
+						},
+					},
+				},
+			});
 		},
 	})
 	.mutation('create', {
@@ -22,19 +30,6 @@ export const postRouter = createRouter()
 					author: {
 						connect: {
 							email: session.user.email as string,
-						},
-					},
-				},
-				include: {
-					author: {
-						include: {
-							Profile: {
-								include: {
-									user: {
-										include: {},
-									},
-								},
-							},
 						},
 					},
 				},
